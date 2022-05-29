@@ -1,0 +1,23 @@
+body{
+    display: flex;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    align-items: center;
+    justify-content: center;
+}
+#calc-body{
+    background-color: darkcyan;
+    width:500px;
+    height: 650px;
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    border-radius: 10px;
+    flex-direction: column;
+}
+#calc-screen{
+    background-color: white;
+    width: 450px;
+    height: 200px;
+    border-radius: 10px;
+    /* border: 10px solid grey; */
+}
