@@ -1,24 +1,45 @@
-const buttons = document.querySelectorAll('button');
+
 const screen= document.querySelector('#calc-screen');
 
 
-
-//print buttons pressed on screen 
-// function numSelect(){
-    buttons.forEach(button =>{
-        button.addEventListener('click', function(){
-            console.log(className)
-            // const content = document.createElement('div');
-            // content.classList.add('content');
-            // content.textContent = "l";
-            // screen.appendchild(content)
-        })
-    })
-// }
-
-// numSelect()
-
+//print buttons pressed on screen
 //clear, one click for current entry, two to start over
-//do math function 
-//return answer on screen 
+//do math functions
+function add(num1, num2){
+    const newNum = num1 + num2
+    console.log(newNum)
+}
 
+function sub(num1, num2){
+    const newNum = num1 - num2
+    console.log(newNum)
+}
+
+function mult(num1, num2){
+    const newNum = num1 * num2
+    console.log(newNum)
+}
+
+function div(num1, num2){
+    const newNum = num1 / num2
+    console.log(newNum)
+}
+
+//operator function 
+
+function operator(){
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+        
+        });
+    });
+}
+
+
+operator()
+
+
+
+
+//return answer on screen 

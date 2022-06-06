@@ -2,7 +2,7 @@
 
 body{
     display: flex;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     align-items: center;
     justify-content: center;
 }
@@ -26,34 +26,16 @@ body{
 }
 #calc-buttons{
     padding: 10px;
-    display: flex;
-    flex-direction: row-reverse;
+    display: grid;
     height: 400px;
-    width: 400px;
-    justify-content: center;
-
+    width: 380px;
+    grid-template-columns: repeat(3, 1fr);
 }
 
-#number-buttons {
-    display: flex;
-    flex-direction: row-reverse;
-    flex-wrap: wrap;
-    
-}
-
-#number-buttons > button{
-    flex: 1 1 31%;
+#calc-buttons > button{
     border-radius: 10px;
-    
+    border: .5px solid gray;
+    font-family: fantasy;
 }
 
-#command-buttons{
-    display: flex;
-    flex-direction: column;
-}
-
-#command-buttons > button{
-    flex: 1 1;
-    border-radius: 10px;
-}
 
