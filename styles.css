@@ -1,3 +1,5 @@
+/* *{ border: 1px dashed red} */
+
 body{
     display: flex;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -6,18 +8,52 @@ body{
 }
 #calc-body{
     background-color: darkcyan;
-    width:500px;
-    height: 650px;
+    width:400px;
+    height: 525px;
     display: flex;
     align-items: center;
     padding: 30px;
     border-radius: 10px;
     flex-direction: column;
 }
+
 #calc-screen{
     background-color: white;
-    width: 450px;
-    height: 200px;
+    width: 380px;
+    height: 100px;
     border-radius: 10px;
     /* border: 10px solid grey; */
 }
+#calc-buttons{
+    padding: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+    height: 400px;
+    width: 400px;
+    justify-content: center;
+
+}
+
+#number-buttons {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    
+}
+
+#number-buttons > button{
+    flex: 1 1 31%;
+    border-radius: 10px;
+    
+}
+
+#command-buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+#command-buttons > button{
+    flex: 1 1;
+    border-radius: 10px;
+}
+
