@@ -1,10 +1,9 @@
 const screen = document.querySelector('#calc-screen');
 const buttons = document.querySelectorAll('button');
 const num = document.createElement('div');
-let firstNum = '';
-let secondNum = '';
-let currentOp  = null;
-let shouldReset = false;
+let previousNum = '';
+let currentNum = '';
+let operator = '';
 
 
 
@@ -12,76 +11,111 @@ let shouldReset = false;
 //do math functions
 function add(num1, num2){
     const newNum = num1 + num2
-    console.log(newNum)
+    return newNum
 }
 
 function sub(num1, num2){
     const newNum = num1 - num2
-    console.log(newNum)
+    return newNum
 }
 
 function mult(num1, num2){
     const newNum = num1 * num2
-    console.log(newNum)
+    return newNum
 }
 
 function div(num1, num2){
     const newNum = num1 / num2
-    console.log(newNum)
+    return newNum
 }
 
-//operator function 
+//operate function 
+//doesnt return correct number
+function operate(operator) {
+    console.log(operator)
+    previousNum = Number(previousNum);
+    currentNum = Number(currentNum);
+    let ans =0;
+    if (operator === "add") {
+        ans = previousNum + currentNum;
+      } else if (operator === "subtract") {
+        previousNum -= currentNum;
+      } else if (operator === "multipy") {
+        previousNum *= currentNum;
+      } else if (operator === "divide") {
+        if (currentNum <= 0) {
+          previousNum = "Error";
+        displayResults();
+        return;
+      }
+      previousNum /= currentNum;
+    }
+    previousNum = roundNumber(previousNum);
+    previousNum = previousNum.toString();
+    displayResults();
+}
 
-function operator(){
-    let num1 = prompt("first number: ")
-    let op = prompt("choose operation:")
-    let num2 = prompt("choose another number:")
-    if(op === "+"){
-        console.log(add(num1, num2))
+function displayResults() {
+    if (previousNum.length <= 11) {
+      screen.textContent = previousNum;
+    } else {
+      screen.textContent = previousNum.slice(0, 11) + "...";
     }
-    else if(op === "-"){
-        console.log(sub(num1, num2))
-    }
-    else if(op === "/"){
-        console.log(div(num1, num2))
-    }
-    else{ 
-        console.log(mult(num1, num2))
-    }
+    operator = "";
+    currentNum = "";
+}
+  
 
+function roundNumber(num) {
+    return Math.round(num * 100000) / 100000;
+}
+
+buttons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+        if(isNaN(e.target.id) == false){
+            handleNumber(e.target.textContent);
+        }
+        else{
+            if(e.target.id == "add" ||e.target.id == "subtract" ||e.target.id == "multiply" ||e.target.id == "divide" ){
+                handleOperator(e.target.textContent)
+            }
+            else if(e.target.id = "equals"){
+                if(currentNum != '' && previousNum != '')
+                operate();
+            }
+        }
+    });
+});
+
+function handleNumber(number) {
+    if (previousNum !== "" && currentNum !== "" && operator === "") {
+      previousNum = "";
+      screen.textContent = currentNum;
+    }
+    if  (currentNum.length <= 6) {
+     currentNum += number;
+        screen.textContent = currentNum;
+      }
+}
+
+function handleOperator(operator){
+    if (previousNum === "") {
+        previousNum = currentNum;
+        screen.textContent = previousNum + " " + operator;
+        currentNum = "";
+      } else if (currentNum === "") {
+        screen.textContent = previousNum + " " + operator;
+        currentNum = "";
+      } else {
+        operate(operator);
+        screen.textContent = previousNum + " " + operator;
+      } 
 }
 
 
-function appendNumber(number) {
-    if (currentOp.textContent === '0' || shouldResetScreen)
-      resetScreen()
-    currentOperationScreen.textContent += number
-  }
+// function displayResults(){
 
-// function display(){
-//     num.classList.add('num');
-//     buttons.forEach((button) => {
-//         button.addEventListener('click', function(e){
-//             let name= e.target.id;
-//             let newName = '';
-//             if(isNaN(name) == false){
-//                 newName = newName + name;
-//                 console.log(newName)
-//             }
-//             num.textContent = newName; 
-//             screen.appendChild(num);
-//         });
-//     });
 // }
-
-// function store(name){
-//     num.classList.add('num');
-//     newName = newName + name;
-//     num.textContent = newName; 
-// }
-display()
-
-
 
 
 //return answer on screen 
