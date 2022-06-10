@@ -1,91 +1,39 @@
 const screen = document.querySelector('#calc-screen');
-const buttons = document.querySelectorAll('button');
-const num = document.createElement('div');
+const numbers = document.querySelectorAll('.number');
+const operators = document.querySelectorAll('.operator');
+const equals = document.querySelector('.equals');
+const clear = document.querySelector('.clear');
 let previousNum = '';
 let currentNum = '';
 let operator = '';
 
-
-
-//print buttons pressed on screen
-//do math functions
-function add(num1, num2){
-    const newNum = num1 + num2
-    return newNum
-}
-
-function sub(num1, num2){
-    const newNum = num1 - num2
-    return newNum
-}
-
-function mult(num1, num2){
-    const newNum = num1 * num2
-    return newNum
-}
-
-function div(num1, num2){
-    const newNum = num1 / num2
-    return newNum
-}
-
 //operate function 
 //doesnt return correct number
-function operate(operator) {
-    console.log(operator)
-    previousNum = Number(previousNum);
-    currentNum = Number(currentNum);
-    let ans =0;
-    if (operator === "add") {
-        ans = previousNum + currentNum;
-      } else if (operator === "subtract") {
-        previousNum -= currentNum;
-      } else if (operator === "multipy") {
-        previousNum *= currentNum;
-      } else if (operator === "divide") {
-        if (currentNum <= 0) {
-          previousNum = "Error";
-        displayResults();
-        return;
-      }
-      previousNum /= currentNum;
-    }
-    previousNum = roundNumber(previousNum);
-    previousNum = previousNum.toString();
-    displayResults();
-}
 
-function displayResults() {
-    if (previousNum.length <= 11) {
-      screen.textContent = previousNum;
-    } else {
-      screen.textContent = previousNum.slice(0, 11) + "...";
-    }
-    operator = "";
-    currentNum = "";
-}
-  
-
-function roundNumber(num) {
-    return Math.round(num * 100000) / 100000;
-}
-
-buttons.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        if(isNaN(e.target.id) == false){
-            handleNumber(e.target.textContent);
-        }
-        else{
-            if(e.target.id == "add" ||e.target.id == "subtract" ||e.target.id == "multiply" ||e.target.id == "divide" ){
-                handleOperator(e.target.textContent)
-            }
-            else if(e.target.id = "equals"){
-                if(currentNum != '' && previousNum != '')
-                operate();
-            }
-        }
+numbers.forEach((number) => {
+    number.addEventListener("click", (e) => {
+      handleNumber(e.target.textContent);
     });
 });
+
+
+operators.forEach((op) => {
+  op.addEventListener('click', (e) =>{
+    handleOperator(e.target.textContent)
+    operator = e.target.id
+  });
+});
+
+
+equals.addEventListener('click', () => {
+    operate();
+  });
+
+
+clear.addEventListener('click',() => {
+  handleClear();
+})
+
 
 function handleNumber(number) {
     if (previousNum !== "" && currentNum !== "" && operator === "") {
@@ -98,24 +46,62 @@ function handleNumber(number) {
       }
 }
 
-function handleOperator(operator){
-    if (previousNum === "") {
-        previousNum = currentNum;
-        screen.textContent = previousNum + " " + operator;
-        currentNum = "";
-      } else if (currentNum === "") {
-        screen.textContent = previousNum + " " + operator;
-        currentNum = "";
-      } else {
-        operate(operator);
-        screen.textContent = previousNum + " " + operator;
-      } 
+function handleOperator(op){
+  if (previousNum === "") {
+      previousNum = currentNum;
+      screen.textContent = previousNum + " " + op;
+      currentNum = "";
+    } else if (currentNum === "") {
+      screen.textContent = previousNum + " " + op;
+      currentNum = "";
+    } else {
+      operate();
+      operator = op;
+      screen.textContent = previousNum + " " + op;
+    } 
 }
 
+function operate() {
+  
+  previousNum = Number(previousNum);
+  currentNum = Number(currentNum);
+  if (operator === "add") {
+      previousNum += currentNum;
+    } else if (operator === "subtract") {
+      previousNum -= currentNum;
+    } else if (operator === "multiply") {
+      previousNum *= currentNum;
+    } else if (operator === 'divide') {
+      if (currentNum <= 0) {
+        previousNum = "Error";
+      displayResults();
+      return;
+    }
+    previousNum /= currentNum;
+  }
+  previousNum = roundNumber(previousNum);
+  previousNum = previousNum.toString();
+  displayResults();
+}
 
-// function displayResults(){
+function roundNumber(num) {
+  return Math.round(num * 100000) / 100000;
+}
 
-// }
+function displayResults() {
+  if (previousNum.length <= 11) {
+    screen.textContent = previousNum;
+  } else {
+    screen.textContent = previousNum.slice(0, 11) + "...";
+  }
+  operator = "";
+  currentNum = "";
+}
 
+function handleClear(){
+  previousNum = '';
+  currentNum = '';
+  operator = '';
+  screen.textContent = '';
+}
 
-//return answer on screen 
